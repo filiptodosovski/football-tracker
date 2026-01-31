@@ -1,4 +1,4 @@
-import { TApiFootballResponse, TMatch } from "./types";
+import { TApiFootballResponse, TLeagueResponse, TMatch } from "./types";
 import { readErrorMessage } from "./utils";
 
 const getApiFootballEnv = () => {
@@ -22,8 +22,7 @@ export const apiFootballFetch = async <T>(
   const res = await fetch(new URL(path, baseUrl), {
     ...init,
     headers: {
-      "x-rapidapi-key": key,
-      "x-rapidapi-host": host,
+      "x-apisports-key": key,
       ...init.headers,
     }
   });
@@ -39,5 +38,17 @@ export const getFixturesByDate = async (dateISO: string) => {
   return apiFootballFetch<TApiFootballResponse<TMatch[]>>(
     `/fixtures?date=${dateISO}`,
     { next: { revalidate: 60 * 10 } }
+  )
+}
+
+export const getStandings = async (leagueId: string | number, season: number) => {
+  return apiFootballFetch<TApiFootballResponse<TLeagueResponse[]>>(
+    `/standings?league=${leagueId}&season=${season}`,
+  )
+}
+
+export const getFixtures = async (leagueId: string | number, season: number) => {
+  return apiFootballFetch<TApiFootballResponse<TMatch[]>>(
+    `/fixtures?league=${leagueId}&season=${season}`,
   )
 }

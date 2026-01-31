@@ -44,10 +44,10 @@ const Navbar = () => {
 
         <div className="w-px h-4 bg-white/10 mx-2" />
 
-        <div className="relative overflow-hidden rounded-full">
+        <div className="overflow-hidden rounded-full">
           <label
             className={cn(
-              "flex items-center gap-2 px-5 py-2 rounded-full transition-all duration-300 cursor-pointer select-none",
+              "relative flex items-center gap-2 px-5 py-2 rounded-full transition-all duration-300 cursor-pointer select-none",
               "active:scale-[0.98]",
               isCalendarActive
                 ? "bg-emerald-500 text-slate-950 font-bold shadow-lg shadow-emerald-500/20"
@@ -63,10 +63,13 @@ const Navbar = () => {
               type="date"
               value={activeDate}
               onChange={(e) => router.push(`/fixtures/${e.target.value}`)}
-              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
-                e.currentTarget.showPicker()
+              onClick={(e) => {
+                try {
+                  e.currentTarget.showPicker()
+                } catch {
+                }
               }}
-              className="absolute inset-0 opacity-0 cursor-pointer z-10 schema-dark"
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
               aria-label="Pick date"
             />
           </label>

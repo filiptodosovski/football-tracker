@@ -1,3 +1,31 @@
+export type TLeagueResponse = {
+  league: {
+    id: number;
+    name: string;
+    country: string;
+    logo: string;
+    flag: string;
+    season: number;
+    standings: TStanding[][]
+  }
+}
+
+export type TStanding = {
+  rank: number
+  points: number
+  goalsDiff: number
+  team: {
+    id: number
+    name: string
+    logo: string
+  }
+  all: {
+    played: number
+    win: number
+    draw: number
+    lose: number
+  }
+}
 export type TFixtureStatus = {
   short: string
   elapsed?: number | null
