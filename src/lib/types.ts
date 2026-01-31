@@ -2,8 +2,7 @@ export type TLeagueResponse = {
   league: {
     id: number;
     name: string;
-    country: string;
-    logo: string;
+    country: string; logo: string;
     flag: string;
     season: number;
     standings: TStanding[][]
@@ -93,4 +92,10 @@ export type TMatchStatus = {
   short: string
   elapsed?: number | null
   kickoffTime: string
+}
+
+export type TLeagueOption = {
+  id: number | "ALL"
+  name: string
+  flag?: string | null
 }
