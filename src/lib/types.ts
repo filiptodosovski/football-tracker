@@ -49,11 +49,13 @@ export type TFixture = {
   id: number
   date: string
   status: TFixtureStatus
+  venue: TVenue
 }
 
-export type TTeam = {
+export type TVenue = {
+  id: number | null
   name: string
-  logo: string
+  city: string
 }
 
 export type TTeams = {
@@ -72,13 +74,17 @@ export type TLeague = {
   country?: string
   flag?: string | null
   logo?: string
+  round: string
 }
 
 export type TMatch = {
   fixture: TFixture
+  league: TLeague
   teams: TTeams
   goals: TGoals
-  league: TLeague
+  events?: TEvent[]
+  lineups?: TLineup[]
+  statistics?: TTeamStats[]
 }
 
 export type TApiFootballResponse<T> = {
@@ -113,4 +119,99 @@ export type TLeagueOption = {
   id: number | "ALL"
   name: string
   flag?: string | null
+}
+
+export type TMatchTabs = {
+  eventsContent: React.ReactNode
+  lineupsContent: React.ReactNode
+  statsContent: React.ReactNode
+}
+
+export type TEvent = {
+  time: {
+    elapsed: number
+    extra?: number | null
+  }
+  team: {
+    id: number
+    logo: string
+    name: string
+  }
+  player: {
+    id: number
+    name: string
+  }
+  assist: {
+    id: number | null
+    name: string | null
+  }
+  type: string
+  detail: string
+}
+export type TEventIcon = {
+  type: string
+  detail: string
+}
+
+export type TPlayer = {
+  id: number
+  name: string
+  number: number
+  pos: string
+  grid: string | null
+}
+
+export type TCoach = {
+  id: number
+  name: string
+  photo: string
+}
+
+export type TKitColors = {
+  primary: string
+  number: string
+  border: string
+}
+
+export type TColors = {
+  player: TKitColors
+  goalkeeper: TKitColors
+}
+
+export type TTeam = {
+  id: number
+  name: string
+  logo: string
+  colors?: TColors
+}
+
+export type TLineup = {
+  team: TTeam
+  coach: TCoach
+  formation: string
+  startXI: { player: TPlayer }[]
+  substitutes: { player: TPlayer }[]
+}
+
+export type PlayerRowProps = {
+  player: TPlayer
+  isSub?: boolean
+}
+
+export type LineupDisplayProps = {
+  lineups: TLineup[]
+}
+
+export type TStat = {
+  type: string
+  value: number | string | null
+}
+
+export type TTeamStats = {
+  team: {
+    id: number
+    name: string
+    logo: string
+  }
+  statistics: TStat[]
 }

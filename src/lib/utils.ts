@@ -60,4 +60,10 @@ export const readErrorMessage = async (res: Response) => {
   }
 
   return `API error (${res.status})`
-};
+}
+
+export const parseStat = (val: string | number | null): number => {
+  if (val === null) return 0
+  if (typeof val === "number") return val
+  return parseInt(val.replace("%", ""), 10) || 0
+}

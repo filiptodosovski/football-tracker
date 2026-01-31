@@ -53,3 +53,8 @@ export const getFixtures = async (leagueId: string | number, season: number) => 
   )
 }
 
+export const getMatchDetails = async (fixtureId: string) => {
+  return apiFootballFetch<TApiFootballResponse<TMatch[]>>(
+    `/fixtures?id=${fixtureId}`
+  )
+}

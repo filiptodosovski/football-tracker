@@ -19,3 +19,4 @@ export const FILTER_OPTIONS = [
 ] as const
 
 export const TOP_LEAGUES_ORDER = [39, 140, 78, 135, 61]
+
