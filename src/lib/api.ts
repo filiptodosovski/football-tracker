@@ -52,3 +52,4 @@ export const getFixtures = async (leagueId: string | number, season: number) => 
     `/fixtures?league=${leagueId}&season=${season}`,
   )
 }
+

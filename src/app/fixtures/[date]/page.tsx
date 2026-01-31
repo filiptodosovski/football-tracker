@@ -20,7 +20,6 @@ export default async function FixturesDatePage({ params, searchParams }: PagePro
 
   const data = await getFixturesByDate(date)
   let matches = data.response ?? []
-  console.log(matches)
 
   const uniqueLeaguesMap = new Map()
   matches.forEach((m) => {

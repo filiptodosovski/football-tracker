@@ -1,3 +1,18 @@
+export type TMatchCard = {
+  match: TMatch
+  showNames?: boolean
+  enableAnimation?: boolean
+}
+
+export type TRefreshIndicator = {
+  isLoading: boolean
+}
+
+export type TAutoRefreshToggle = {
+  isPaused: boolean
+  onToggle: () => void
+}
+
 export type TLeagueResponse = {
   league: {
     id: number;
