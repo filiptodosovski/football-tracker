@@ -4,21 +4,15 @@ import React from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Calendar } from "lucide-react"
-import { getDateFromPath } from "@/utils/date"
-import { cn } from "@/utils/mergeClassNames"
+import { cn, getDateFromPath, getTodayISO } from "@/lib/utils"
 
 const Navbar = () => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const today = new Date().toISOString().slice(0, 10)
+  const today = getTodayISO()
   const pathDate = getDateFromPath(pathname)
   const activeDate = pathDate ?? today
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newDate = e.target.value
-    router.push(`/fixtures/${newDate}`)
-  }
 
   const navItems = [
     { name: "Matches", href: "/" },
@@ -68,7 +62,7 @@ const Navbar = () => {
             <input
               type="date"
               value={activeDate}
-              onChange={handleDateChange}
+              onChange={(e) => router.push(`/fixtures/${e.target.value}`)}
               onClick={(e: React.MouseEvent<HTMLInputElement>) => {
                 e.currentTarget.showPicker()
               }}

@@ -23,7 +23,7 @@ const RootLayout = ({ children }: TRootLayout) => {
         </main>
       </body>
     </html>
-  );
-};
+  )
+}
 
-export default RootLayout;
+export default RootLayout

@@ -1,7 +1,5 @@
-type TApiFootballError = {
-  message?: string
-  errors?: Record<string, string>
-}
+import { TApiFootballResponse, TMatch } from "./types";
+import { readErrorMessage } from "./utils";
 
 const getApiFootballEnv = () => {
   const baseUrl = process.env.API_FOOTBALL_BASE_URL
@@ -13,33 +11,7 @@ const getApiFootballEnv = () => {
   }
 
   return { baseUrl, key, host }
-};
-
-const readErrorMessage = async (res: Response) => {
-  if (res.status === 429) {
-    return "You exceed the limit of requests to the API. Please try again later."
-  }
-
-  try {
-    const body = (await res.json()) as TApiFootballError
-
-    if (body?.message) {
-      return body.message
-    }
-
-    const firstError = body?.errors
-      ? Object.values(body.errors)[0]
-      : undefined
-
-    if (firstError) {
-      return firstError
-    }
-  } catch (error) {
-    console.error("Failed to parse API Football error response:", error)
-  }
-
-  return `API error (${res.status})`
-};
+}
 
 export const apiFootballFetch = async <T>(
   path: string,
@@ -53,8 +25,7 @@ export const apiFootballFetch = async <T>(
       "x-rapidapi-key": key,
       "x-rapidapi-host": host,
       ...init.headers,
-    },
-    cache: init.cache ?? "no-store",
+    }
   });
 
   if (!res.ok) {
@@ -62,4 +33,11 @@ export const apiFootballFetch = async <T>(
   }
 
   return res.json() as Promise<T>
-};
+}
+
+export const getFixturesByDate = async (dateISO: string) => {
+  return apiFootballFetch<TApiFootballResponse<TMatch[]>>(
+    `/fixtures?date=${dateISO}`,
+    { next: { revalidate: 60 * 10 } }
+  )
+}
