@@ -8,15 +8,13 @@ import { MATCH_STATUS } from "@/lib/constants"
 export const dynamic = "force-dynamic"
 
 type PageProps = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 const HomePage = async ({ searchParams }: PageProps) => {
-  const params = await searchParams
-
-  const statusFilter = (params.status as string) || "ALL"
-  const leagueFilter = (params.league as string) || "ALL"
-  const searchQuery = (params.q as string)?.toLowerCase() || ""
+  const statusFilter = (searchParams.status as string) || "ALL"
+  const leagueFilter = (searchParams.league as string) || "ALL"
+  const searchQuery = (searchParams.q as string)?.toLowerCase() || ""
 
   const today = getTodayISO()
   const data = await getFixturesByDate(today)

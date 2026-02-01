@@ -1,6 +1,6 @@
 import { TMatchGroup, TMatchList } from "@/lib/types"
 import MatchCard from "./MatchCard"
-import Link from "next/link" // Added Link
+import Link from "next/link"
 
 const MatchList = ({ matches }: TMatchList) => {
   const byCountry: Record<string, Record<string, TMatchGroup>> = {}
@@ -17,7 +17,7 @@ const MatchList = ({ matches }: TMatchList) => {
       byCountry[country][leagueKey] = {
         key: `${country}__${leagueId}`,
         country,
-        leagueId, // Captured for Link
+        leagueId,
         leagueName: match.league.name,
         leagueLogo: match.league.logo,
         countryFlag: match.league.flag ?? null,
@@ -50,7 +50,6 @@ const MatchList = ({ matches }: TMatchList) => {
           <div className="space-y-10">
             {c.leagues.map((g) => (
               <section key={g.key} className="space-y-4">
-                {/* Clickable League Header */}
                 <Link
                   href={`/league/${g.leagueId}`}
                   className="flex items-center gap-3 px-2 group w-fit transition-transform active:scale-95"
