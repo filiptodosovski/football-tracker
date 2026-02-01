@@ -1,11 +1,5 @@
-import { TTeamStats } from "@/lib/types"
+import { TStatsComparison } from "@/lib/types"
 import { parseStat } from "@/lib/utils"
-
-type TStatsComparison = {
-  stats: TTeamStats[]
-  homeTeamName: string
-  awayTeamName: string
-}
 
 const StatsComparison = ({ stats, homeTeamName, awayTeamName }: TStatsComparison) => {
   if (!stats || stats.length < 2) {

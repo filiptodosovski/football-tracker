@@ -1,14 +1,7 @@
-import { ReactNode } from "react"
 import { cn } from "@/lib/utils"
+import type { TEmptyState } from "@/lib/types"
 
-type EmptyStateProps = {
-  title: string
-  description?: string
-  icon?: ReactNode
-  className?: string
-}
-
-const EmptyState = ({ title, description, icon, className }: EmptyStateProps) => {
+const EmptyState = ({ title, description, icon, className }: TEmptyState) => {
   return (
     <div
       className={cn(

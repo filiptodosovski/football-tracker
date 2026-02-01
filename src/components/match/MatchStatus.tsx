@@ -2,6 +2,7 @@
 
 import { TMatchStatus } from "@/lib/types"
 import { Clock } from "lucide-react"
+import Badge from "@/components/ui/Badge"
 
 const LIVE_CODES = new Set(["1H", "2H", "ET", "P"])
 
@@ -12,25 +13,21 @@ const MatchStatus = ({ short, elapsed, kickoffTime }: TMatchStatus) => {
 
   if (isLive) {
     return (
-      <span className="flex items-center gap-1 text-[10px] font-black text-emerald-500 animate-pulse bg-emerald-500/10 px-2 py-0.5 rounded-full">
+      <Badge variant="live" className="flex items-center gap-1 animate-pulse">
         {(elapsed ?? 0)}
-      </span>
+      </Badge>
     )
   }
 
   if (isHalfTime) {
     return (
-      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-        HT
-      </span>
+      <Badge variant="warning">HT</Badge>
     )
   }
 
   if (isFinished) {
     return (
-      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-        FT
-      </span>
+      <Badge variant="finished">FT</Badge>
     )
   }
 

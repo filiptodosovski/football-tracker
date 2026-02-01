@@ -2,7 +2,7 @@
 
 import { TRefreshIndicator } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { Loader2 } from "lucide-react"
+import Spinner from "@/components/ui/Spinner"
 
 const RefreshIndicator = ({ isLoading }: TRefreshIndicator) => {
   return (
@@ -13,8 +13,8 @@ const RefreshIndicator = ({ isLoading }: TRefreshIndicator) => {
           isLoading ? "animate-ping opacity-100" : "opacity-0"
         )}
       />
-      <Loader2
-        size={18}
+      <Spinner
+        size="sm"
         className={cn(
           "text-emerald-500 transition-all duration-300",
           isLoading ? "animate-spin opacity-100" : "opacity-0 scale-75"

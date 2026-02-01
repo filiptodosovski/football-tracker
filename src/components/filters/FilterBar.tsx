@@ -3,10 +3,7 @@
 import LeagueFilter from "./LeagueFilter"
 import StatusFilter from "./StatusFilter"
 import TeamSearch from "./TeamSearch"
-
-type TFilterBar = {
-  availableLeagues: Array<{ id: number | "ALL"; name: string; flag?: string | null }>
-}
+import type { TFilterBar } from "@/lib/types"
 
 const FilterBar = ({ availableLeagues }: TFilterBar) => {
   return (

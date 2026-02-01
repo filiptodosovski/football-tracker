@@ -1,14 +1,5 @@
-import { TLineup, TPlayer } from "@/lib/types"
+import { TLineupDisplay, TPlayerRow } from "@/lib/types"
 import Image from "next/image"
-
-type TPlayerRow = {
-  player: TPlayer
-  isSub?: boolean
-}
-
-type TLineupDisplay = {
-  lineups: TLineup[]
-}
 
 const PlayerRow = ({ player, isSub }: TPlayerRow) => (
   <div className={`flex items-center gap-3 p-2 rounded hover:bg-white/5 transition-colors ${isSub ? "opacity-75" : ""}`}>

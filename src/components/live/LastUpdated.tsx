@@ -1,12 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import type { TLastUpdated } from "@/lib/types"
 
-type ILastUpdate = {
-  date: Date | null
-}
-
-const LastUpdated = ({ date }: ILastUpdate) => {
+const LastUpdated = ({ date }: TLastUpdated) => {
   const [label, setLabel] = useState("Syncing...")
 
   useEffect(() => {

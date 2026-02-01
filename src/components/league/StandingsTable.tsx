@@ -1,9 +1,5 @@
-import { TStanding } from "@/lib/types"
+import { TStandingsTable } from "@/lib/types"
 import StandingsRow from "./StandingsRow"
-
-type TStandingsTable = {
-  standings: TStanding[]
-}
 
 const StandingsTable = ({ standings }: TStandingsTable) => {
   return (

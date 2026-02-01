@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Search, X } from "lucide-react"
 import { useDebounce } from "@/hooks/useDebounce"
+import Button from "@/components/ui/Button"
 
 export default function TeamSearch() {
   const router = useRouter()
@@ -35,12 +36,14 @@ export default function TeamSearch() {
         className="w-full bg-slate-900/50 border border-white/10 rounded-xl py-2 pl-10 pr-8 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
       />
       {text && (
-        <button
+        <Button
           onClick={() => setText("")}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+          size="sm"
+          variant="ghost"
+          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-500 hover:text-white"
         >
           <X size={14} />
-        </button>
+        </Button>
       )}
     </div>
   )

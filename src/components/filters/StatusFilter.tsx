@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { FILTER_OPTIONS } from "@/lib/constants"
+import Button from "@/components/ui/Button"
 
 
 const StatusFilter = () => {
@@ -23,18 +24,20 @@ const StatusFilter = () => {
       {FILTER_OPTIONS.map((status) => {
         const isActive = currentStatus === status.value
         return (
-          <button
+          <Button
             key={status.value}
             onClick={() => handleStatusChange(status.value)}
+            size="sm"
+            variant="ghost"
             className={cn(
-              "px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200",
+              "rounded-lg whitespace-nowrap transition-all duration-200",
               isActive
                 ? "bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/20"
                 : "text-slate-400 hover:text-white hover:bg-white/5"
             )}
           >
             {status.label}
-          </button>
+          </Button>
         )
       })}
     </div>

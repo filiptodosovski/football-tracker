@@ -1,9 +1,5 @@
-import { TStanding } from "@/lib/types"
+import { TStandingsRow } from "@/lib/types"
 import Image from "next/image"
-
-type TStandingsRow = {
-  team: TStanding
-}
 
 const StandingsRow = ({ team }: TStandingsRow) => {
   const { rank, team: teamInfo, all, goalsDiff, points } = team

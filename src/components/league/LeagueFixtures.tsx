@@ -1,9 +1,5 @@
-import { TMatch } from "@/lib/types";
-import MatchCard from "../match/MatchCard";
-
-type TLeagueFixtures = {
-  matches: TMatch[]
-}
+import { TLeagueFixtures } from "@/lib/types"
+import MatchCard from "../match/MatchCard"
 
 const LeagueFixtures = ({ matches }: TLeagueFixtures) => {
   if (matches.length === 0) {

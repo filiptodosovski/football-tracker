@@ -1,11 +1,5 @@
-import { TEvent, TEventIcon } from "@/lib/types"
+import { TEventIcon, TEventsTimeline } from "@/lib/types"
 import { ArrowLeftRight } from "lucide-react"
-
-
-type TEventsTimeline = {
-  events: TEvent[]
-  homeTeamId: number
-}
 
 const EventIcon = ({ type, detail }: TEventIcon) => {
   if (type === "Goal") return <div className="text-lg">⚽</div>

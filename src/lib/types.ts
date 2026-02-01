@@ -1,3 +1,5 @@
+import type { ButtonHTMLAttributes, ReactNode } from "react"
+
 export type TMatchCard = {
   match: TMatch
   showNames?: boolean
@@ -85,6 +87,20 @@ export type TMatch = {
   events?: TEvent[]
   lineups?: TLineup[]
   statistics?: TTeamStats[]
+}
+
+export type TMatchList = {
+  matches: TMatch[]
+}
+
+export type TMatchGroup = {
+  key: string
+  country: string
+  leagueName: string
+  leagueId: number
+  leagueLogo?: string
+  countryFlag?: string | null
+  matches: TMatch[]
 }
 
 export type TApiFootballResponse<T> = {
@@ -193,13 +209,55 @@ export type TLineup = {
   substitutes: { player: TPlayer }[]
 }
 
-export type PlayerRowProps = {
+export type TPlayerRow = {
   player: TPlayer
   isSub?: boolean
 }
 
-export type LineupDisplayProps = {
+export type TLineupDisplay = {
   lineups: TLineup[]
+}
+
+export type TButtonVariant = "primary" | "secondary" | "ghost"
+export type TButtonSize = "sm" | "md" | "lg"
+
+export type TButton = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: TButtonVariant
+  size?: TButtonSize
+}
+
+export type TBadgeVariant =
+  | "default"
+  | "live"
+  | "finished"
+  | "upcoming"
+  | "warning"
+
+export type TBadge = {
+  children: ReactNode
+  variant?: TBadgeVariant
+  className?: string
+}
+
+export type TSpinner = {
+  className?: string
+  size?: "sm" | "md" | "lg"
+}
+
+export type TTabPanel = {
+  label: string
+  children: ReactNode
+  className?: string
+  tabClassName?: string
+}
+
+export type TTabs = {
+  children: ReactNode
+  defaultIndex?: number
+  className?: string
+  tabListClassName?: string
+  tabClassName?: string
+  panelClassName?: string
 }
 
 export type TStat = {
@@ -214,4 +272,46 @@ export type TTeamStats = {
     logo: string
   }
   statistics: TStat[]
+}
+
+export type TLeagueFixtures = {
+  matches: TMatch[]
+}
+
+export type TStandingsTable = {
+  standings: TStanding[]
+}
+
+export type TStandingsRow = {
+  team: TStanding
+}
+
+export type TEmptyState = {
+  title: string
+  description?: string
+  icon?: ReactNode
+  className?: string
+}
+
+export type TLastUpdated = {
+  date: Date | null
+}
+
+export type TLiveMatchList = {
+  fetchLiveAction: () => Promise<TMatch[]>
+}
+
+export type TEventsTimeline = {
+  events: TEvent[]
+  homeTeamId: number
+}
+
+export type TStatsComparison = {
+  stats: TTeamStats[]
+  homeTeamName: string
+  awayTeamName: string
+}
+
+export type TFilterBar = {
+  availableLeagues: Array<TLeagueOption & { flag?: string | null }>
 }

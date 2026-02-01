@@ -1,23 +1,9 @@
-import { TMatch } from "@/lib/types"
+import { TMatchGroup, TMatchList } from "@/lib/types"
 import MatchCard from "./MatchCard"
 import Link from "next/link" // Added Link
 
-type Group = {
-  key: string
-  country: string
-  leagueName: string
-  leagueId: number // Added leagueId for navigation
-  leagueLogo?: string
-  countryFlag?: string | null
-  matches: TMatch[]
-}
-
-type TMatchListProps = {
-  matches: TMatch[]
-}
-
-const MatchList = ({ matches }: TMatchListProps) => {
-  const byCountry: Record<string, Record<string, Group>> = {}
+const MatchList = ({ matches }: TMatchList) => {
+  const byCountry: Record<string, Record<string, TMatchGroup>> = {}
 
   for (const match of matches) {
     const rawCountry = match.league.country

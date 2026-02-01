@@ -6,12 +6,9 @@ import AutoRefreshToggle from "@/components/live/AutoRefreshToggle"
 import RefreshIndicator from "@/components/live/RefreshIndicator"
 import LastUpdated from "@/components/live/LastUpdated"
 import EmptyState from "@/components/ui/EmptyState"
-import { TMatch } from "@/lib/types"
+import Button from "@/components/ui/Button"
+import { TLiveMatchList } from "@/lib/types"
 import { useLiveScores } from "@/hooks/useLiveScores"
-
-type TLiveMatchList = {
-  fetchLiveAction: () => Promise<TMatch[]>
-}
 
 const LiveMatchList = ({ fetchLiveAction }: TLiveMatchList) => {
   const { matches, isLoading, isPaused, togglePause, lastUpdated, refreshNow } =
@@ -30,14 +27,16 @@ const LiveMatchList = ({ fetchLiveAction }: TLiveMatchList) => {
           <div className="h-4 w-px bg-white/10 mx-1" />
           <LastUpdated date={lastUpdated} />
           <AutoRefreshToggle isPaused={isPaused} onToggle={togglePause} />
-          <button
+          <Button
             onClick={refreshNow}
             disabled={isLoading}
-            className="ml-2 p-1.5 rounded-full hover:bg-white/10 text-slate-500 hover:text-white transition-colors disabled:opacity-50"
+            variant="ghost"
+            size="sm"
+            className="ml-2 rounded-full p-1.5 hover:bg-white/10 text-slate-500 hover:text-white transition-colors disabled:opacity-50"
             title="Force Refresh"
           >
             <span className="sr-only">Refresh</span>
-          </button>
+          </Button>
         </div>
       </div>
 
