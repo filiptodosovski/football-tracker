@@ -5,20 +5,19 @@ import { readErrorMessage } from "./utils";
 const getApiFootballEnv = () => {
   const baseUrl = process.env.API_FOOTBALL_BASE_URL
   const key = process.env.API_FOOTBALL_KEY
-  const host = process.env.API_FOOTBALL_HOST
 
-  if (!baseUrl || !key || !host) {
+  if (!baseUrl || !key) {
     throw new Error("API Football environment variables are not set.")
   }
 
-  return { baseUrl, key, host }
+  return { baseUrl, key }
 }
 
 export const apiFootballFetch = async <T>(
   path: string,
   init: RequestInit = {}
 ): Promise<T> => {
-  const { baseUrl, key, host } = getApiFootballEnv()
+  const { baseUrl, key } = getApiFootballEnv()
 
   const res = await fetch(new URL(path, baseUrl), {
     ...init,
