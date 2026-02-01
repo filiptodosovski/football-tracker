@@ -20,3 +20,4 @@ export const FILTER_OPTIONS = [
 
 export const TOP_LEAGUES_ORDER = [39, 140, 78, 135, 61]
 
+export const REVALIDATE_SECONDS = 60

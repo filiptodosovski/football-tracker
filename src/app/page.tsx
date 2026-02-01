@@ -1,23 +1,45 @@
 import MatchList from "@/components/match/MatchList"
 import FilterBar from "@/components/filters/FilterBar"
 import EmptyState from "@/components/ui/EmptyState"
+import ErrorState from "@/components/ui/ErrorState"
+import RetryButton from "@/components/ui/RetryButton"
 import { getFixturesByDate } from "@/lib/api"
-import { getTodayISO } from "@/lib/utils"
-import { MATCH_STATUS } from "@/lib/constants"
+import { getErrorMessage, getTodayISO } from "@/lib/utils"
+import { MATCH_STATUS, REVALIDATE_SECONDS } from "@/lib/constants"
 
-export const dynamic = "force-dynamic"
+export const revalidate = REVALIDATE_SECONDS
 
 type PageProps = {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 const HomePage = async ({ searchParams }: PageProps) => {
-  const statusFilter = (searchParams.status as string) || "ALL"
-  const leagueFilter = (searchParams.league as string) || "ALL"
-  const searchQuery = (searchParams.q as string)?.toLowerCase() || ""
+  const queryParams = await searchParams
+  const statusFilter = (queryParams.status as string) || "ALL"
+  const leagueFilter = (queryParams.league as string) || "ALL"
+  const searchQuery = (queryParams.q as string)?.toLowerCase() || ""
 
   const today = getTodayISO()
-  const data = await getFixturesByDate(today)
+  let data
+
+  try {
+    data = await getFixturesByDate(today, REVALIDATE_SECONDS)
+  } catch (error) {
+    return (
+      <main className="space-y-8">
+        <header className="flex flex-col gap-6">
+          <h1 className="text-4xl font-black italic uppercase tracking-tighter">
+            Today&apos;s Matches
+          </h1>
+        </header>
+        <ErrorState
+          title="Unable to load matches"
+          description={getErrorMessage(error, "Please try again in a moment.")}
+          action={<RetryButton />}
+        />
+      </main>
+    )
+  }
   let matches = data.response ?? []
 
   const uniqueLeaguesMap = new Map()

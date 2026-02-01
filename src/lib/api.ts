@@ -1,3 +1,4 @@
+import { REVALIDATE_SECONDS } from "./constants";
 import { TApiFootballResponse, TLeagueResponse, TMatch } from "./types";
 import { readErrorMessage } from "./utils";
 
@@ -34,10 +35,10 @@ export const apiFootballFetch = async <T>(
   return res.json() as Promise<T>
 }
 
-export const getFixturesByDate = async (dateISO: string) => {
+export const getFixturesByDate = async (dateISO: string, revalidateSeconds = REVALIDATE_SECONDS) => {
   return apiFootballFetch<TApiFootballResponse<TMatch[]>>(
     `/fixtures?date=${dateISO}`,
-    { next: { revalidate: 60 * 10 } }
+    { next: { revalidate: revalidateSeconds } }
   )
 }
 

@@ -62,6 +62,13 @@ export const readErrorMessage = async (res: Response) => {
   return `API error (${res.status})`
 }
 
+export const getErrorMessage = (error: unknown, fallback = "Something went wrong.") => {
+  if (error instanceof Error && error.message) {
+    return error.message
+  }
+  return fallback
+}
+
 export const parseStat = (val: string | number | null): number => {
   if (val === null) return 0
   if (typeof val === "number") return val

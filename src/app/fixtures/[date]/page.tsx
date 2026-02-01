@@ -2,7 +2,10 @@ import { getFixturesByDate } from "@/lib/api"
 import MatchList from "@/components/match/MatchList"
 import FilterBar from "@/components/filters/FilterBar"
 import EmptyState from "@/components/ui/EmptyState"
+import ErrorState from "@/components/ui/ErrorState"
+import RetryButton from "@/components/ui/RetryButton"
 import { MATCH_STATUS } from "@/lib/constants"
+import { getErrorMessage } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
 
@@ -19,7 +22,27 @@ export default async function FixturesDatePage({ params, searchParams }: PagePro
   const leagueFilter = (queryParams.league as string) || "ALL"
   const searchQuery = (queryParams.q as string)?.toLowerCase() || ""
 
-  const data = await getFixturesByDate(date)
+  let data
+  try {
+    data = await getFixturesByDate(date)
+  } catch (error) {
+    return (
+      <main className="space-y-8">
+        <header className="flex flex-col gap-6">
+          <div>
+            <h1 className="text-4xl font-black italic uppercase tracking-tighter text-slate-100">
+              Fixtures
+            </h1>
+          </div>
+        </header>
+        <ErrorState
+          title="Unable to load fixtures"
+          description={getErrorMessage(error, "Please try another date or retry.")}
+          action={<RetryButton />}
+        />
+      </main>
+    )
+  }
   let matches = data.response ?? []
 
   const uniqueLeaguesMap = new Map()

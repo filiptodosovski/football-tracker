@@ -1,7 +1,11 @@
 import Image from "next/image"
+import { notFound } from "next/navigation"
 import StandingsTable from "@/components/league/StandingsTable"
 import LeagueFixtures from "@/components/league/LeagueFixtures"
+import ErrorState from "@/components/ui/ErrorState"
+import RetryButton from "@/components/ui/RetryButton"
 import { getFixtures, getStandings } from "@/lib/api"
+import { getErrorMessage } from "@/lib/utils"
 
 type PageProps = {
   params: Promise<{ id: string }>
@@ -11,14 +15,33 @@ const LeaguePage = async ({ params }: PageProps) => {
   const { id: leagueId } = await params
   const season = 2024
 
-  const [standingsRes, fixturesRes] = await Promise.all([
-    getStandings(leagueId, season),
-    getFixtures(leagueId, season)
-  ])
+  let standingsRes
+  let fixturesRes
+
+  try {
+    [standingsRes, fixturesRes] = await Promise.all([
+      getStandings(leagueId, season),
+      getFixtures(leagueId, season)
+    ])
+  } catch (error) {
+    return (
+      <main className="space-y-10">
+        <ErrorState
+          title="Unable to load league data"
+          description={getErrorMessage(error, "Please retry in a moment.")}
+          action={<RetryButton />}
+        />
+      </main>
+    )
+  }
 
   const leagueData = standingsRes.response?.[0]?.league
   const standings = leagueData?.standings?.[0] || []
   const allMatches = fixturesRes.response || []
+
+  if (!leagueData && allMatches.length === 0) {
+    return notFound()
+  }
 
   return (
     <main className="space-y-10 animate-in fade-in duration-500">

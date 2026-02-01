@@ -7,11 +7,13 @@ import RefreshIndicator from "@/components/live/RefreshIndicator"
 import LastUpdated from "@/components/live/LastUpdated"
 import EmptyState from "@/components/ui/EmptyState"
 import Button from "@/components/ui/Button"
+import ErrorState from "@/components/ui/ErrorState"
+import RetryButton from "@/components/ui/RetryButton"
 import { TLiveMatchList } from "@/lib/types"
 import { useLiveScores } from "@/hooks/useLiveScores"
 
 const LiveMatchList = ({ fetchLiveAction }: TLiveMatchList) => {
-  const { matches, isLoading, isPaused, togglePause, lastUpdated, refreshNow } =
+  const { matches, isLoading, isPaused, togglePause, lastUpdated, refreshNow, error } =
     useLiveScores(fetchLiveAction)
 
   return (
@@ -41,7 +43,13 @@ const LiveMatchList = ({ fetchLiveAction }: TLiveMatchList) => {
       </div>
 
       <div className="min-h-[300px]">
-        {matches.length > 0 ? (
+        {error ? (
+          <ErrorState
+            title="Unable to load live matches"
+            description={error}
+            action={<RetryButton label="Try again" />}
+          />
+        ) : matches.length > 0 ? (
           <div className="flex flex-col gap-3">
             {matches.map((match) => (
               <div key={match.fixture.id} className="animate-in slide-in-from-bottom-2 duration-500">

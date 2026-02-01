@@ -298,7 +298,19 @@ export type TLastUpdated = {
 }
 
 export type TLiveMatchList = {
-  fetchLiveAction: () => Promise<TMatch[]>
+  fetchLiveAction: () => Promise<TLiveMatchPayload>
+}
+
+export type TLiveMatchPayload = {
+  matches: TMatch[]
+  error?: string
+}
+
+export type TErrorState = {
+  title: string
+  description?: string
+  action?: ReactNode
+  className?: string
 }
 
 export type TEventsTimeline = {

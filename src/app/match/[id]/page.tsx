@@ -6,7 +6,9 @@ import EventsTimeline from "@/components/match/EventsTimeline"
 import LineupDisplay from "@/components/match/LineupDisplay"
 import StatsComparison from "@/components/match/StatsComparison"
 import MatchStatus from "@/components/match/MatchStatus"
-import { formatTimeHHmm } from "@/lib/utils"
+import ErrorState from "@/components/ui/ErrorState"
+import RetryButton from "@/components/ui/RetryButton"
+import { formatTimeHHmm, getErrorMessage } from "@/lib/utils"
 
 type TMatchDetailsPageProps = {
   params: Promise<{ id: string }>
@@ -14,7 +16,20 @@ type TMatchDetailsPageProps = {
 
 const MatchDetailsPage = async ({ params }: TMatchDetailsPageProps) => {
   const { id } = await params
-  const data = await getMatchDetails(id)
+  let data
+  try {
+    data = await getMatchDetails(id)
+  } catch (error) {
+    return (
+      <main className="space-y-8">
+        <ErrorState
+          title="Unable to load match details"
+          description={getErrorMessage(error, "Please try again shortly.")}
+          action={<RetryButton />}
+        />
+      </main>
+    )
+  }
 
   if (!data.response || data.response.length === 0) return notFound()
 
