@@ -1,5 +1,6 @@
 import MatchList from "@/components/match/MatchList"
 import FilterBar from "@/components/filters/FilterBar"
+import EmptyState from "@/components/ui/EmptyState"
 import { getFixturesByDate } from "@/lib/api"
 import { getTodayISO } from "@/lib/utils"
 import { MATCH_STATUS } from "@/lib/constants"
@@ -73,10 +74,10 @@ const HomePage = async ({ searchParams }: PageProps) => {
       {matches.length > 0 ? (
         <MatchList matches={matches} />
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 bg-slate-900/50 rounded-3xl border border-white/5">
-          <p className="text-slate-400 font-medium">No matches found matching your filters.</p>
-          <p className="text-slate-600 text-sm mt-2">Try adjusting your search or status.</p>
-        </div>
+        <EmptyState
+          title="No matches found"
+          description="Try adjusting your search or status."
+        />
       )}
     </main>
   )
