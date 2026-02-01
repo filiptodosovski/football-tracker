@@ -5,9 +5,7 @@ import ErrorState from "@/components/ui/ErrorState"
 import RetryButton from "@/components/ui/RetryButton"
 import { getFixturesByDate } from "@/lib/api"
 import { getErrorMessage, getTodayISO } from "@/lib/utils"
-import { MATCH_STATUS, REVALIDATE_SECONDS } from "@/lib/constants"
-
-export const revalidate = REVALIDATE_SECONDS
+import { MATCH_STATUS } from "@/lib/constants"
 
 type TPage = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -23,7 +21,7 @@ const HomePage = async ({ searchParams }: TPage) => {
   let data
 
   try {
-    data = await getFixturesByDate(today, REVALIDATE_SECONDS)
+    data = await getFixturesByDate(today)
   } catch (error) {
     return (
       <main className="space-y-8">

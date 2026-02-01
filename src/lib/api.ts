@@ -35,10 +35,10 @@ export const apiFootballFetch = async <T>(
   return res.json() as Promise<T>
 }
 
-export const getFixturesByDate = async (dateISO: string, revalidateSeconds = REVALIDATE_SECONDS) => {
+export const getFixturesByDate = async (dateISO: string) => {
   return apiFootballFetch<TApiFootballResponse<TMatch[]>>(
     `/fixtures?date=${dateISO}`,
-    { next: { revalidate: revalidateSeconds } }
+    { next: { revalidate: REVALIDATE_SECONDS } }
   )
 }
 
