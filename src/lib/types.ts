@@ -17,11 +17,12 @@ export type TAutoRefreshToggle = {
 
 export type TLeagueResponse = {
   league: {
-    id: number;
-    name: string;
-    country: string; logo: string;
-    flag: string;
-    season: number;
+    id: number
+    name: string
+    country: string
+    logo: string
+    flag: string
+    season: number
     standings: TStanding[][]
   }
 }
@@ -89,9 +90,11 @@ export type TMatch = {
   statistics?: TTeamStats[]
 }
 
-export type TMatchList = {
+export type TMatchCollection = {
   matches: TMatch[]
 }
+
+export type TMatchList = TMatchCollection
 
 export type TMatchGroup = {
   key: string
@@ -138,9 +141,9 @@ export type TLeagueOption = {
 }
 
 export type TMatchTabs = {
-  eventsContent: React.ReactNode
-  lineupsContent: React.ReactNode
-  statsContent: React.ReactNode
+  eventsContent: ReactNode
+  lineupsContent: ReactNode
+  statsContent: ReactNode
 }
 
 export type TEvent = {
@@ -274,9 +277,7 @@ export type TTeamStats = {
   statistics: TStat[]
 }
 
-export type TLeagueFixtures = {
-  matches: TMatch[]
-}
+export type TLeagueFixtures = TMatchCollection
 
 export type TStandingsTable = {
   standings: TStanding[]
@@ -301,8 +302,7 @@ export type TLiveMatchList = {
   fetchLiveAction: () => Promise<TLiveMatchPayload>
 }
 
-export type TLiveMatchPayload = {
-  matches: TMatch[]
+export type TLiveMatchPayload = TMatchCollection & {
   error?: string
 }
 
@@ -325,5 +325,5 @@ export type TStatsComparison = {
 }
 
 export type TFilterBar = {
-  availableLeagues: Array<TLeagueOption & { flag?: string | null }>
+  availableLeagues: TLeagueOption[]
 }
