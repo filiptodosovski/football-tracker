@@ -7,9 +7,8 @@ import {
   TabPanels,
   TabPanel as HeadlessTabPanel,
 } from "@headlessui/react"
-import { Children, isValidElement, ReactElement } from "react"
+import { Children, isValidElement, ReactElement, Fragment } from "react"
 import { cn } from "@/lib/utils"
-import TabPanel from "./TabPanel"
 import type { TTabPanel, TTabs } from "@/lib/types"
 
 const Tabs = ({
@@ -20,21 +19,24 @@ const Tabs = ({
   tabClassName,
   panelClassName,
 }: TTabs) => {
-  const panels = Children.toArray(children).filter((child): child is ReactElement<TTabPanel> => {
-    return isValidElement(child) && child.type === TabPanel
-  })
+  const childrenArray = Children.toArray(children)
+
+  const panels = childrenArray.filter(
+    (child): child is ReactElement<TTabPanel> => isValidElement(child)
+  )
 
   return (
     <div className={cn("w-full", className)}>
       <TabGroup defaultIndex={defaultIndex}>
+
         <TabList
           className={cn(
             "flex p-1 space-x-1 bg-slate-900/50 rounded-xl border border-white/5 backdrop-blur-sm",
             tabListClassName
           )}
         >
-          {panels.map((panel) => (
-            <Tab as="div" key={panel.props.label}>
+          {panels.map((panel, index) => (
+            <Tab as={Fragment} key={`${panel.props.label}-tab-${index}`}>
               {({ selected }) => (
                 <button
                   className={cn(
@@ -52,10 +54,11 @@ const Tabs = ({
             </Tab>
           ))}
         </TabList>
+
         <TabPanels>
           {panels.map((panel, index) => (
             <HeadlessTabPanel
-              key={`${panel.props.label}-${index}`}
+              key={`${panel.props.label}-panel-${index}`}
               className={cn(
                 "rounded-xl bg-slate-900/0 ring-white/60 focus:outline-none",
                 "animate-in fade-in slide-in-from-bottom-2 duration-500",
@@ -67,6 +70,7 @@ const Tabs = ({
             </HeadlessTabPanel>
           ))}
         </TabPanels>
+
       </TabGroup>
     </div>
   )
