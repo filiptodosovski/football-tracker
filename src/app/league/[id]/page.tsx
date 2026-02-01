@@ -7,11 +7,11 @@ import RetryButton from "@/components/ui/RetryButton"
 import { getFixtures, getStandings } from "@/lib/api"
 import { getErrorMessage } from "@/lib/utils"
 
-type PageProps = {
+type TPage = {
   params: Promise<{ id: string }>
 }
 
-const LeaguePage = async ({ params }: PageProps) => {
+const LeaguePage = async ({ params }: TPage) => {
   const { id: leagueId } = await params
   const season = 2024
 

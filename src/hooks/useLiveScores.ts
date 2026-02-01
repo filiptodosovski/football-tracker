@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { TLiveMatchPayload, TMatch } from "@/lib/types"
 
-export function useLiveScores(fetchLiveAction: () => Promise<TLiveMatchPayload>) {
+export const useLiveScores = (fetchLiveAction: () => Promise<TLiveMatchPayload>) => {
   const [matches, setMatches] = useState<TMatch[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isPaused, setIsPaused] = useState(false)

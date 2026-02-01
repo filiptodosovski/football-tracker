@@ -9,12 +9,12 @@ import { getErrorMessage } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
 
-type PageProps = {
+type TPage = {
   params: Promise<{ date: string }>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function FixturesDatePage({ params, searchParams }: PageProps) {
+const FixturesDatePage = async ({ params, searchParams }: TPage) => {
   const { date } = await params
   const queryParams = await searchParams
 
@@ -116,3 +116,5 @@ export default async function FixturesDatePage({ params, searchParams }: PagePro
     </main>
   )
 }
+
+export default FixturesDatePage

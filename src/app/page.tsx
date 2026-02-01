@@ -9,11 +9,11 @@ import { MATCH_STATUS, REVALIDATE_SECONDS } from "@/lib/constants"
 
 export const revalidate = REVALIDATE_SECONDS
 
-type PageProps = {
+type TPage = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-const HomePage = async ({ searchParams }: PageProps) => {
+const HomePage = async ({ searchParams }: TPage) => {
   const queryParams = await searchParams
   const statusFilter = (queryParams.status as string) || "ALL"
   const leagueFilter = (queryParams.league as string) || "ALL"

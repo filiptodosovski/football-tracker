@@ -3,7 +3,7 @@ import LiveMatchList from "@/components/live/LiveMatchList"
 import { TApiFootballResponse, TLiveMatchPayload, TMatch } from "@/lib/types"
 import { getErrorMessage } from "@/lib/utils"
 
-async function fetchLiveMatchesAction(): Promise<TLiveMatchPayload> {
+const fetchLiveMatchesAction = async (): Promise<TLiveMatchPayload> => {
   "use server"
 
   try {
@@ -18,10 +18,12 @@ async function fetchLiveMatchesAction(): Promise<TLiveMatchPayload> {
   }
 }
 
-export default function LivePage() {
+const LivePage = () => {
   return (
     <main className="space-y-8">
       <LiveMatchList fetchLiveAction={fetchLiveMatchesAction} />
     </main>
   )
 }
+
+export default LivePage

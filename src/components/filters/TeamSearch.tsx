@@ -6,7 +6,7 @@ import { Search, X } from "lucide-react"
 import { useDebounce } from "@/hooks/useDebounce"
 import Button from "@/components/ui/Button"
 
-export default function TeamSearch() {
+const TeamSearch = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -48,3 +48,5 @@ export default function TeamSearch() {
     </div>
   )
 }
+
+export default TeamSearch

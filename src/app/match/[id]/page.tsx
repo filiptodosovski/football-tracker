@@ -10,11 +10,11 @@ import ErrorState from "@/components/ui/ErrorState"
 import RetryButton from "@/components/ui/RetryButton"
 import { formatTimeHHmm, getErrorMessage } from "@/lib/utils"
 
-type TMatchDetailsPageProps = {
+type TMatchDetailsPage = {
   params: Promise<{ id: string }>
 }
 
-const MatchDetailsPage = async ({ params }: TMatchDetailsPageProps) => {
+const MatchDetailsPage = async ({ params }: TMatchDetailsPage) => {
   const { id } = await params
   let data
   try {
