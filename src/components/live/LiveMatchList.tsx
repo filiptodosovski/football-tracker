@@ -5,6 +5,7 @@ import MatchCard from "@/components/match/MatchCard"
 import AutoRefreshToggle from "@/components/live/AutoRefreshToggle"
 import RefreshIndicator from "@/components/live/RefreshIndicator"
 import LastUpdated from "@/components/live/LastUpdated"
+import EmptyState from "@/components/ui/EmptyState"
 import { TMatch } from "@/lib/types"
 import { useLiveScores } from "@/hooks/useLiveScores"
 
@@ -53,17 +54,12 @@ const LiveMatchList = ({ fetchLiveAction }: TLiveMatchList) => {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center space-y-4 opacity-60">
-            <div className="bg-slate-800/50 p-4 rounded-full">
-              <WifiOff size={40} className="text-slate-500" />
-            </div>
-            <div>
-              <p className="text-slate-300 font-bold text-lg">No matches currently live</p>
-              <p className="text-slate-500 text-sm max-w-xs mx-auto">
-                Matches usually start on the hour. Check the upcoming fixtures.
-              </p>
-            </div>
-          </div>
+          <EmptyState
+            title="No matches currently live"
+            description="Matches usually start on the hour. Check the upcoming fixtures."
+            icon={<WifiOff size={40} />}
+            className="opacity-70"
+          />
         )}
       </div>
     </div>

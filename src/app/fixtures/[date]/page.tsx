@@ -1,6 +1,7 @@
 import { getFixturesByDate } from "@/lib/api"
 import MatchList from "@/components/match/MatchList"
 import FilterBar from "@/components/filters/FilterBar"
+import EmptyState from "@/components/ui/EmptyState"
 import { MATCH_STATUS } from "@/lib/constants"
 
 export const dynamic = "force-dynamic"
@@ -84,12 +85,10 @@ export default async function FixturesDatePage({ params, searchParams }: PagePro
       {matches.length > 0 ? (
         <MatchList matches={matches} />
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 bg-slate-900/50 rounded-3xl border border-white/5 backdrop-blur-sm">
-          <p className="text-slate-400 font-medium">No matches found for this date.</p>
-          <p className="text-slate-600 text-sm mt-2">
-            Try clearing filters or picking another day.
-          </p>
-        </div>
+        <EmptyState
+          title="No matches found"
+          description="Try clearing filters or picking another day."
+        />
       )}
     </main>
   )
